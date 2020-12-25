@@ -32,32 +32,101 @@ public class ProductService {
 		return responseObject;
 	}
 
-	public List<Product> saveProducts(List<Product> products) {
-		return repository.saveAll(products);
+	public ResultSet<List<Product>> saveProducts(List<Product> products) {
+
+		ResultSet<List<Product>> responseObject = new ResultSet<>();
+		try {
+			responseObject.setData(repository.saveAll(products));
+			successCount++;
+			responseObject.setSuccessCount(successCount);
+		} catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionMessage(e.getMessage());
+			responseObject.setExceptionCount(exceptionCount);
+		}
+		return responseObject;
 	}
 
-	public List<Product> getAllProducts() {
-		return repository.findAll();
+	public ResultSet<List<Product>> getAllProducts() {
+
+		ResultSet<List<Product>> responseObject = new ResultSet<>();
+		try {
+			responseObject.setData(repository.findAll());
+			successCount++;
+			responseObject.setSuccessCount(successCount);
+		} catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionMessage(e.getMessage());
+			responseObject.setExceptionCount(exceptionCount);
+		}
+		return responseObject;
 	}
 
-	public Product getProductById(int id) {
-		return repository.findById(id).orElse(null);
+	public ResultSet<Product> getProductById(int id) {
+
+		ResultSet<Product> responseObject = new ResultSet<>();
+
+		try {
+			responseObject.setData(repository.findById(id).orElse(null));
+			successCount++;
+			responseObject.setSuccessCount(successCount);
+		} catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionMessage(e.getMessage());
+			responseObject.setExceptionCount(exceptionCount);
+		}
+
+		return responseObject;
 	}
 
-	public Product getProductByName(String name) {
-		return repository.findByName(name);
+	public ResultSet<Product> getProductByName(String name) {
+
+		ResultSet<Product> responseObject = new ResultSet<>();
+		try {
+			responseObject.setData(repository.findByName(name));
+			successCount++;
+			responseObject.setSuccessCount(successCount);
+		} catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionMessage(e.getMessage());
+			responseObject.setExceptionCount(exceptionCount);
+		}
+		return responseObject;
 	}
 
-	public String deleteById(int id) {
-		repository.deleteById(id);
-		return "Product deleted with id --" + id;
+	public ResultSet<Product> deleteById(int id) {
+
+		ResultSet<Product> responseObject = new ResultSet<>();
+		try {
+			repository.deleteById(id);
+			responseObject.setData("Product deleted with Id --> " + id);
+			successCount++;
+			responseObject.setSuccessCount(successCount);
+		} catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionMessage(e.getMessage());
+			responseObject.setExceptionCount(exceptionCount);
+		}
+		return responseObject;
 	}
 
-	public Product updateProduct(Product product) {
-		Product existingProduct = repository.findById(product.getId()).orElse(null);
-		existingProduct.setName(product.getName());
-		existingProduct.setPrice(product.getPrice());
-		existingProduct.setQuantity(product.getQuantity());
-		return repository.save(existingProduct);
+	public ResultSet<Product> updateProduct(Product product) {
+
+		ResultSet<Product> responseObject = new ResultSet<>();
+		try {
+			Product existingProduct = repository.findById(product.getId()).orElse(null);
+			existingProduct.setName(product.getName());
+			existingProduct.setPrice(product.getPrice());
+			existingProduct.setQuantity(product.getQuantity());
+			responseObject.setData(repository.save(existingProduct));
+			successCount++;
+			responseObject.setSuccessCount(successCount);
+
+		} catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionMessage(e.getMessage());
+			responseObject.setExceptionCount(exceptionCount);
+		}
+		return responseObject;
 	}
 }

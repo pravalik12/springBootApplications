@@ -53,33 +53,92 @@ public class ProductController {
 	}
 
 	@PostMapping("/addProducts")
-	public List<Product> addProducts(@RequestBody List<Product> products) {
-		return productService.saveProducts(products);
+	public ResultSet<List<Product>> addProducts(@RequestBody List<Product> products) {
+		
+		ResultSet<List<Product>> responseObject = new ResultSet<>();
+		try {
+			responseObject = productService.saveProducts(products);
+			
+		}catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionCount(exceptionCount);
+			responseObject.setExceptionMessage(e.getMessage());		
+		}
+		return responseObject;
 	}
 
 	@GetMapping("/getAllProducts")
-	public List<Product> findAllProducts() {
-		return productService.getAllProducts();
+	public ResultSet<List<Product>>findAllProducts() {
+		
+		ResultSet<List<Product>> responseObject = new ResultSet<>();
+		try {
+			responseObject = productService.getAllProducts();
+			
+		}catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionCount(exceptionCount);
+			responseObject.setExceptionMessage(e.getMessage());		
+		}
+		return responseObject;
 	}
 
 	@GetMapping("/getProductById/{id}")
-	public Product findProductById(@PathVariable int id) {
-		return productService.getProductById(id);
+	public ResultSet<Product> findProductById(@PathVariable int id) {
+		
+		ResultSet<Product> responseObject = new ResultSet<Product>();
+		try {
+			responseObject = productService.getProductById(id);
+			
+		}catch(Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionCount(exceptionCount);
+			responseObject.setExceptionMessage(e.getMessage());		
+		}
+		return responseObject;
 	}
 
 	@GetMapping("/getProductByName/{name}")
-	public Product findProductByName(@PathVariable String name) {
-		return productService.getProductByName(name);
+	public ResultSet<Product> findProductByName(@PathVariable String name) {
+		
+		ResultSet<Product> responseObject = new ResultSet<Product>();
+		try {
+			responseObject = productService.getProductByName(name);
+		}catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionCount(exceptionCount);
+			responseObject.setExceptionMessage(e.getMessage());		
+		}
+		return responseObject;
 	}
 
 	@PutMapping("/updateProduct")
-	public Product updateProduct(@RequestBody Product product) {
-		return productService.updateProduct(product);
+	public ResultSet<Product> updateProduct(@RequestBody Product product) {
+		
+		ResultSet<Product> responseObject = new ResultSet<Product>();
+		try {
+			responseObject = productService.updateProduct(product);
+			
+		}catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionCount(exceptionCount);
+			responseObject.setExceptionMessage(e.getMessage());		
+		}
+		return responseObject;
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public String deleteProduct(@PathVariable int id) {
-		return productService.deleteById(id);
+	public ResultSet<Product> deleteProduct(@PathVariable int id) {
+		
+		ResultSet<Product> responseObject = new ResultSet<Product>();
+		try {
+			responseObject = productService.deleteById(id);
+			
+		}catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionCount(exceptionCount);
+			responseObject.setExceptionMessage(e.getMessage());		
+		}
+		return responseObject;
 	}
 
 }
