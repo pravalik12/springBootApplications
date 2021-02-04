@@ -140,5 +140,12 @@ public class ProductController {
 		}
 		return responseObject;
 	}
+	
+	@GetMapping("/getMessage")
+	public String getMessageFromService() {
+		System.out.println("Hello World.");
+		return "Connection has been established..!";
+		
+	}
 
 }
